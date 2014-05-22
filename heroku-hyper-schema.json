@@ -26,6 +26,13 @@
                     }
                 }
             },
+            "properties": {
+                "links": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/link"
+                    }
+                }
+            },
             "required": [
                 "definitions",
                 "description",
@@ -48,7 +55,10 @@
                     "required": ["description", "type"],
                     "type": ["object"]
                 }
-            ]
+            ],
+            "not": {
+                "required": ["links"]
+            }
         },
         "identity": {
             "additionalProperties": false,
@@ -82,7 +92,7 @@
         },
         "links": {
             "additionalProperties": {
-                "$ref": "#/definitions/link"
+                "$ref": "#/definitions/ref"
             }
         },
         "properties": {
