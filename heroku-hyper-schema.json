@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-04/heroku-hyper-schema#",
+    "id": "http://json-schema.org/draft-04/heroku-hyper-schema#",
+    "title": "Heroku JSON Hyper-Schema",
+    "allOf": [
+        {
+            "$ref": "http://json-schema.org/draft-04/hyper-schema#"
+        }
+    ],
+    "definitions": {
+        "entity": {
+            "dependencies": {
+                "properties": {
+                    "properties": {
+                        "definitions": {
+                            "additionalProperties": {
+                                "$ref": "#/definitions/entityProperty"
+                            },
+                            "properties": {
+                                "identity": {
+                                    "$ref": "#/definitions/identity"
+                                }
+                            },
+                            "required": ["identity"]
+                        }
+                    }
+                }
+            },
+            "required": [
+                "definitions",
+                "description",
+                "id",
+                "links",
+                "title",
+                "type"
+            ]
+        },
+        "entityProperty": {
+            "anyOf": [
+                {
+                    "required": ["description", "example", "type"]
+                },
+                {
+                    "required": ["description", "type"],
+                    "type": ["array"]
+                },
+                {
+                    "required": ["description", "type"],
+                    "type": ["object"]
+                }
+            ]
+        },
+        "identity": {
+            "additionalProperties": false,
+            "properties": {
+                "anyOf": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ref"
+                    }
+                }
+            },
+            "required": ["anyOf"]
+        },
+        "link": {
+            "dependencies": {
+                "schema": {
+                    "required": ["properties", "type"]
+                }
+            },
+            "required": ["description", "method", "rel", "title"]
+        },
+        "ref": {
+            "required": ["$ref"]
+        }
+    },
+    "properties": {
+        "definitions": {
+            "additionalProperties": {
+                "$ref": "#/definitions/entity"
+            }
+        },
+        "links": {
+            "additionalProperties": {
+                "$ref": "#/definitions/link"
+            }
+        },
+        "properties": {
+            "additionalProperties": {
+                "$ref": "#/definitions/ref"
+            }
+        }
+    },
+    "required": [
+        "$schema",
+        "definitions",
+        "description",
+        "id",
+        "links",
+        "properties",
+        "title",
+        "type"
+    ]
+}
