@@ -28,7 +28,7 @@
             },
             "properties": {
                 "links": {
-                    "additionalProperties": {
+                    "items": {
                         "$ref": "#/definitions/link"
                     }
                 }
@@ -36,7 +36,6 @@
             "required": [
                 "definitions",
                 "description",
-                "id",
                 "links",
                 "title",
                 "type"
@@ -73,12 +72,35 @@
             "required": ["anyOf"]
         },
         "link": {
-            "dependencies": {
+            "properties": {
                 "schema": {
                     "required": ["properties", "type"]
+                },
+                "targetSchema": {
+                    "anyOf": [
+                        {
+                            "properties": {
+                                "rel": {
+                                    "pattern": "^instances$"
+                                },
+                                "targetSchema": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "items": {
+                                            "$ref": "#/definitions/ref"
+                                        }
+                                    },
+                                    "required": ["items"]
+                                }
+                            }
+                        },
+                        {
+                            "$ref": "#/definitions/ref"
+                        }
+                    ]
                 }
             },
-            "required": ["description", "method", "rel", "title"]
+            "required": ["description", "method", "rel", "targetSchema", "title"]
         },
         "ref": {
             "required": ["$ref"]
