@@ -28,7 +28,7 @@
             },
             "properties": {
                 "links": {
-                    "additionalProperties": {
+                    "items": {
                         "$ref": "#/definitions/link"
                     }
                 }
@@ -36,7 +36,6 @@
             "required": [
                 "definitions",
                 "description",
-                "id",
                 "links",
                 "title",
                 "type"
@@ -73,7 +72,7 @@
             "required": ["anyOf"]
         },
         "link": {
-            "dependencies": {
+            "properties": {
                 "schema": {
                     "required": ["properties", "type"]
                 }
